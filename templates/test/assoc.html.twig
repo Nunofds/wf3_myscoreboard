@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+{# <h2> Je m'appelle {{personne ['prenom'] }} {{ personne ['nom'] }} </h2> #}
+{# l'opérateur de concatenation est ~ #}
+<h2> Je m'appelle {{personne.prenom ~' '~ personne.nom }} et j'ai {{ personne.age }}ans </h2>
+
+{% endblock %}

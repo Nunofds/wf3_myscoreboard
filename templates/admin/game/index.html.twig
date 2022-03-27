@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des jeux
+{% endblock %}
+
+{% block body %}
+
+	<h1>Liste des jeux</h1>
+	<table class='container table table-dark table-striped'>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Joueurs min</th>
+				<th>Joueurs max</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for game in games %}
+				<tr>
+					<td>{{ game.id }}</td>
+					<td>{{ game.title }}</td>
+					<td>{{ game.minPlayers }}</td>
+					<td>{{ game.maxPlayers }}</td>
+					<td>
+						<a href="{{ path('app_admin_game_edit', {id:game.id}) }}">
+							<i class='fa fa-edit mx-3'></i>
+						</a>
+						<a href="{{ path('app_admin_game_delete', {id:game.id}) }}">
+							<i class="fa fa-trash mx-3" style='color:tomato'></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan='4'>Aucun jeu trouvé !</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{# 
+	     ******************** COURS CESAIRE ********************
+	     #}
+	{# 
+	    <h1>Liste des joueurs</h1>
+	    <table class='table container'>
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Pseudo</th>
+	                <th>Email</th>
+	                <th>Voir le joueur</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            {% for player in players %}
+	                <tr>
+	                    <td>{{ player.id }}</td>
+	                    <td>{{ player.nickname }}</td>
+	                    <td>{{ player.email }}</td>
+	                    <td><a href="{{ path('show', { id:player.id } ) }}" class='btn btn-primary'>voir le joueur</a></td>
+	                </tr>
+	            {% else %}
+	                <tr>
+	                    <td colspan='4'>Aucun joueur n'est trouvé !</td>
+	                </tr>
+	                    
+	            {% endfor %}   
+	        </tbody>
+	    </table>
+	
+	     {% if player %}
+	        <h3>Détail du joueur:<br> Pseudo: {{player.nickname}} <br> Email: {{player.email}}</h3>
+	     {% endif %} 
+	     
+	     #}
+
+{% endblock %}
