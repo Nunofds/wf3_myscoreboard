@@ -88,6 +88,21 @@ function edit(Request $rq, EntityManagerInterface $em, GameRepository $gameRepos
     ]);
 }
 
+    #[Route('/admin/game/modifier/{title}', name:'app_admin_game_modifier')]
+    public function modifier(Request $rq, EntityManagerInterface $em, Game $jeu)
+    {
+        //$jeu = $gameRepository->find($id); //ca on en a plus besoin
+        $form = $this->createForm(GameType::class, $jeu);
+
+        $form->handleRequest($rq); //handleRequest important
+        if($form->isSubmitted()&& $form->isValid()){
+            $em->flush();
+            return $this->redirectToRoute("app_admin_game");
+        }
+
+        return $this->render("admin/game/form.html.twig",["formGame"=>$form->createView() ]);
+    }
+
 /**
  * EXO
  *  1 .créer une route app_admin_game_delete, qui prend l'id comme paramètre

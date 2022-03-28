@@ -27,6 +27,9 @@
 						<a href="{{ path('app_admin_game_edit', {id:game.id}) }}">
 							<i class='fa fa-edit mx-3'></i>
 						</a>
+						<a href="{{ path('app_admin_game_modifier', {title:game.title}) }}">
+							<i class='fa fa-pen mx-3'></i>
+						</a>
 						<a href="{{ path('app_admin_game_delete', {id:game.id}) }}">
 							<i class="fa fa-trash mx-3" style='color:tomato'></i>
 						</a>
