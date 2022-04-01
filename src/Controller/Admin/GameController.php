@@ -27,7 +27,6 @@ function index(GameRepository $gameRepository): Response
     // $gameRepository = new GameRepository;
     return $this->render('admin/game/index.html.twig', [
         "games" => $gameRepository->findAll(),
-
     ]);
 }
 
@@ -88,20 +87,20 @@ function edit(Request $rq, EntityManagerInterface $em, GameRepository $gameRepos
     ]);
 }
 
-    #[Route('/admin/game/modifier/{title}', name:'app_admin_game_modifier')]
-    public function modifier(Request $rq, EntityManagerInterface $em, Game $jeu)
+#[Route('/admin/game/modifier/{title}', name:'app_admin_game_modifier')]
+function modifier(Request $rq, EntityManagerInterface $em, Game $jeu)
     {
-        //$jeu = $gameRepository->find($id); //ca on en a plus besoin
-        $form = $this->createForm(GameType::class, $jeu);
+    //$jeu = $gameRepository->find($id); //ca on en a plus besoin
+    $form = $this->createForm(GameType::class, $jeu);
 
-        $form->handleRequest($rq); //handleRequest important
-        if($form->isSubmitted()&& $form->isValid()){
-            $em->flush();
-            return $this->redirectToRoute("app_admin_game");
-        }
-
-        return $this->render("admin/game/form.html.twig",["formGame"=>$form->createView() ]);
+    $form->handleRequest($rq); //handleRequest important
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush();
+        return $this->redirectToRoute("app_admin_game");
     }
+
+    return $this->render("admin/game/form.html.twig", ["formGame" => $form->createView()]);
+}
 
 /**
  * EXO

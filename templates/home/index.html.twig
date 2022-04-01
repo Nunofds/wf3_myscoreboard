@@ -1,10 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
-
-{% block body %}
-    <h2 class='my-5'>Page d'accueil</h2>
+{% block title %}Accueil
 {% endblock %}
 
-{% block piedpage %}Footer de la page d'accueil{% endblock %}
+{% block body %}
+    <h3 class='my-3'>Il y a <b style='color:green;'>{{ nb_joueurs }}</b> inscrits dans la base de donées !</h3>
+
+    <div class='d-flex justify-content-around flex-wrap'>
+        {% for game in games %}
+            {{ include('_game/_card.html.twig') }}
+        {% endfor %}
+    </div>
+    <hr>
+
+    <h2>Joueurs ayant gagné une partie : </h2>
+    <ul>
+        {% for joueur in gagnants %}
+            <li>{{ joueur.nickname ~ " (" ~ joueur.email ~")" }}</li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}
+
+{% block piedpage %} Footer de la page d'accueil {% endblock %}
 

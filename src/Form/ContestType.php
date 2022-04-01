@@ -24,14 +24,23 @@ class ContestType extends AbstractType
                 'class' => Game::class,
                 'choice_label' => 'title',
                 'placeholder' => "",
+                'label' => 'Jeu',
             ])
             ->add('winner', EntityType::class, [
                 'class' => Player::class,
                 'choice_label' => 'nickname',
                 'placeholder' => "Choisir le gagnant...",
                 'required' => false,
+                'label' => 'Vainquer',
             ])
-        ;
+            ->add('players', EntityType::class, [
+                'class' => Player::class,
+                'choice_label' => 'nickname',
+                'multiple' => true,
+                'expanded' => true,
+                'label' => 'Participants',
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

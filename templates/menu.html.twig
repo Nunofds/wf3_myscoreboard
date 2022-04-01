@@ -1,55 +1,96 @@
+{# EXO: créer une route profil (dans un nouveau controleur nommée profil) cette route doit afficher les informations de l'utilisateur connecté #}
+
 {# navbar #}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="#">Navbar</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class=" navbar-brand" href="{{ path('app_home') }}">Myscoreboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="">{{ app.user.pseudo }}</a>
+                </li>
+                {#                 Logout #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_logout') }}">
+                        <i class='fa fa-sign-out btn btn-danger'></i>
+                    </a>
+                </li>
+            {% else %}
+                {#                 Login #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_login') }}">
+                        <i class='fa fa-sign-in btn btn-success'></i>
+                    </a>
+                </li>
+                {#                 registrer #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_register') }}">
+                        <i class='fa fa-user-plus btn btn-primary'></i>
+                    </a>
+                </li>
+            {% endif %}
 
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="{{ path('app_home') }}">Home
-					<span class="sr-only">(current)</span>
-				</a>
-			</li>
-			{# jeux #}
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Jeux
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ path('app_admin_game') }}">Liste</a>
-					<a class="dropdown-item" href="{{ path('app_admin_game_new') }}">Ajouter</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</li>
-			{# joueurs #}
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Joueurs
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ path('app_admin_player_index') }}">Liste</a>
-					<a class="dropdown-item" href="{{ path('app_admin_player_new') }}">Ajouter</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</li>
-			{# parties #}
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Parties
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ path('app_admin_contest_index') }}">Liste</a>
-					<a class="dropdown-item" href="{{ path('app_admin_contest_new') }}">Ajouter</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</li>
+            {% if is_granted('ROLE_ADMIN') %}
+                {#                 jeux #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-expanded="false">
+                        Jeux
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('app_admin_game') }}">Liste</a>
+                        <a class="dropdown-item" href="{{ path('app_admin_game_new') }}">Ajouter</a>
+                    </div>
+                </li>
+                {#                 joueurs #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Joueurs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('app_admin_player_index') }}">Liste</a>
+                        <a class="dropdown-item" href="{{ path('app_admin_player_new') }}">Ajouter</a>
+                    </div>
+                </li>
+                {#                 parties #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Parties
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('app_admin_contest_index') }}">Liste</a>
+                        <a class="dropdown-item" href="{{ path('app_admin_contest_new') }}">Ajouter</a>
+                    </div>
+                </li>
 
-		</ul>
-	</div>
+                {#                 users #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Utilisateurs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('app_admin_user_index') }}">Liste</a>
+                        <a class="dropdown-item" href="{{ path('app_admin_user_new') }}">Ajouter</a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+
+        <form action='{{ path('app_search') }}' class="d-flex">
+            <input name='search' class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
 </nav>

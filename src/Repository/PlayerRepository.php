@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Contest;
 use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -43,6 +44,21 @@ class PlayerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+     * @param $value
+     * @return Player[] Returns an array of Player objects
+     */
+    public function findWinners($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->join(Contest::class, 'c', 'WITH', 'c.winner = p.id')
+            ->orderBy('p.nickname', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**

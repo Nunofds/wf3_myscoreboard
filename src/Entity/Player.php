@@ -27,6 +27,9 @@ class Player
     #[ORM\ManyToMany(targetEntity: Contest::class, mappedBy: 'players')]
     private $contests;
 
+    #[ORM\OneToOne(mappedBy: 'player', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
     public function __construct()
     {
         $this->winner_contests = new ArrayCollection();
@@ -115,6 +118,28 @@ class Player
         if ($this->contests->removeElement($contest)) {
             $contest->removePlayer($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPlayer(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPlayer() !== $this) {
+            $user->setPlayer($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

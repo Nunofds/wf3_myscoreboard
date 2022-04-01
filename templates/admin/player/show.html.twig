@@ -1,30 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Player{% endblock %}
+{% block title %}Player
+{% endblock %}
 
 {% block body %}
-    <h1>Player</h1>
+	<h1>Player</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ player.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ player.email }}</td>
-            </tr>
-            <tr>
-                <th>Nickname</th>
-                <td>{{ player.nickname }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ player.id }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ player.email }}</td>
+			</tr>
+			<tr>
+				<th>Pseudo</th>
+				<td>{{ player.nickname }}</td>
+			</tr>
+			<tr>
+				<th>Parties</th>
+				{# <td> {{  }} </td> #}
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_admin_player_index') }}">back to list</a>
+	<a href="{{ path('app_admin_player_index') }}" class='btn btn-info'>back to list</a>
 
-    <a href="{{ path('app_admin_player_edit', {'id': player.id}) }}">edit</a>
+	<a href="{{ path('app_admin_player_edit', {'id': player.id}) }}" class='btn btn-primary'>edit</a>
 
-    {{ include('admin/player/_delete_form.html.twig') }}
+	{{ include('admin/player/_delete_form.html.twig') }}
 {% endblock %}

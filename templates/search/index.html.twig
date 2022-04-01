@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Recherche {% endblock %}
+
+	{% block titreH1 %}
+		Résultat de la recherche : <code>{{mot}}</code>
+	{% endblock %}
+
+{% block body %}
+	<div class='d-flex justify-content-around flex-wrap'>
+		{% for game in games %}
+			{{ include('_game/_card.html.twig') }}
+			{% else %}
+			<h3 class="alert alert-danger">Aucun résultat trouvé !</h3>
+		{% endfor %}
+	</div>
+{% endblock %}
